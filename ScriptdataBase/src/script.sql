@@ -104,8 +104,8 @@ CREATE TABLE A_role
 CREATE TABLE Reservation
 (
     ID_reserv VARCHAR NOT NULL,
-    date_debut Timestamp NOT NULL,
-    date_fin Timestamp NOT NULL,
+    date_debut Timestamp without time zone not NULL,
+    date_fin Timestamp without time zone NOT NULL,
     Id_local VARCHAR NOT NULL,
     Id_pavillon VARCHAR NOT NULL,
     CIP VARCHAR NOT NULL,
@@ -416,7 +416,7 @@ VALUES
     ('C1', '2055', '0211'),
     ('C1', '3014', '0211'),
     ('C1', '3027', '0211'),
-    ('C1', '3016', '0210'),
+    ('C1', '3016', '0211'),
     ('C1', '3018', '0211'),
     ('C1', '3024', '0211'),
     ('C1', '3035', '0210'),
