@@ -17,14 +17,7 @@ CREATE TABLE Campus
 
 );
 
-CREATE TABLE Pavillon
-(
-    Id_pavillon VARCHAR NOT NULL,
-    nom_pavillon VARCHAR NOT NULL,
-    Id_campus VARCHAR NOT NULL,
-    PRIMARY KEY (Id_pavillon),
-    FOREIGN KEY (Id_campus) REFERENCES Campus(Id_campus)
-);
+
 
 
 
@@ -44,6 +37,26 @@ CREATE TABLE Role
 
 
 
+
+
+CREATE TABLE Faculté
+(
+    ID_facu VARCHAR NOT NULL,
+    nom_facu VARCHAR NOT NULL,
+    PRIMARY KEY (ID_facu)
+
+);
+CREATE TABLE Pavillon
+(
+    Id_pavillon VARCHAR NOT NULL,
+    nom_pavillon VARCHAR NOT NULL,
+    Id_campus VARCHAR NOT NULL,
+    Id_facu VARCHAR NOT NULL,
+    PRIMARY KEY (Id_pavillon),
+    FOREIGN KEY (Id_campus) REFERENCES Campus(Id_campus),
+    FOREIGN KEY (Id_facu) REFERENCES faculté(ID_facu)
+);
+
 CREATE TABLE Local
 (
     Id_local VARCHAR NOT NULL,
@@ -55,15 +68,6 @@ CREATE TABLE Local
 
     FOREIGN KEY (Id_pavillon) REFERENCES Pavillon(Id_pavillon),
     FOREIGN KEY (Id_local, Id_pavillon) REFERENCES Local(Id_local, Id_pavillon)
-);
-
-CREATE TABLE Faculté
-(
-    ID_facu VARCHAR NOT NULL,
-    nom_facu VARCHAR NOT NULL,
-    Id_pavillon VARCHAR NOT NULL,
-    PRIMARY KEY (ID_facu),
-    FOREIGN KEY (Id_pavillon) REFERENCES Pavillon(Id_pavillon)
 );
 
 CREATE TABLE Departement_
@@ -139,7 +143,7 @@ CREATE INDEX idx_Local_Id_pavillon ON Local (Id_pavillon);
 CREATE INDEX idx_Local_Id_local ON Local (Id_local);
 
 -- Indexes pour la table Faculté
-CREATE INDEX idx_Faculté_Id_pavillon ON Faculté (Id_pavillon);
+--CREATE INDEX idx_Faculté_Id_pavillon ON Faculté (Id_pavillon);
 
 -- Indexes pour la table Departement_
 CREATE INDEX idx_Departement_Id_facu ON Departement_ (ID_facu);
@@ -160,6 +164,9 @@ CREATE INDEX idx_a_fonction_Id_local ON a_fonction (Id_local);
 CREATE INDEX idx_a_fonction_ID_fonction ON a_fonction (ID_fonction);
 
 
+INSERT INTO Faculté (ID_facu, nom_facu)
+VALUES
+    ('FAC1', 'Génie');
 
 INSERT INTO Campus (Id_campus, nom_campus)
 VALUES
@@ -168,11 +175,11 @@ VALUES
     ('03', 'Campus C');
 
 -- Insert mock data into the Pavillon table
-INSERT INTO Pavillon (Id_pavillon, nom_pavillon, Id_campus)
+INSERT INTO Pavillon (Id_pavillon, nom_pavillon, Id_campus, Id_facu)
 VALUES
-    ('C1', 'J.-Armard-Bombardier', '01'),
-    ('C2', 'J.-Armard-Bombardier', '01'),
-    ('D7', 'Marie-Victorin', '01');
+    ('C1', 'J.-Armard-Bombardier', '01','FAC1'),
+    ('C2', 'J.-Armard-Bombardier', '01','FAC1'),
+    ('D7', 'Marie-Victorin', '01','FAC1');
 
 -- Insert mock data into the Fonction_Local table
 INSERT INTO Fonction_Local (ID_fonction, nom_fonction)
@@ -302,9 +309,7 @@ VALUES
     ('3020', 35, 'Un mur est en fenêtre', 'D7');
 
 -- Insert mock data into the Faculté table
-INSERT INTO Faculté (ID_facu, nom_facu, Id_pavillon)
-VALUES
-    ('FAC1', 'Faculté 1', 'C1');
+
 
 -- Insert mock data into the Departement_ table
 INSERT INTO Departement_ (ID_depart, nom_depart, ID_facu)
