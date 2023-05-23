@@ -13,18 +13,17 @@ CREATE TABLE Campus
 (
     Id_campus VARCHAR NOT NULL,
     nom_campus VARCHAR NOT NULL,
-    PRIMARY KEY (Id_campus),
-    FOREIGN KEY (Id_campus) REFERENCES Campus(Id_campus)
+    PRIMARY KEY (Id_campus)
+
 );
 
 CREATE TABLE Pavillon
 (
-    Id_pavillon INT NOT NULL,
+    Id_pavillon VARCHAR NOT NULL,
     nom_pavillon VARCHAR NOT NULL,
     Id_campus VARCHAR NOT NULL,
     PRIMARY KEY (Id_pavillon),
-    FOREIGN KEY (Id_campus) REFERENCES Campus(Id_campus),
-    FOREIGN KEY (Id_pavillon) REFERENCES Pavillon(Id_pavillon)
+    FOREIGN KEY (Id_campus) REFERENCES Campus(Id_campus)
 );
 
 
@@ -49,18 +48,20 @@ CREATE TABLE Local
 (
     Id_local VARCHAR NOT NULL,
     Capacite INT NOT NULL,
-    note VARCHAR NOT NULL,
-    Id_pavillon INT NOT NULL,
+    note VARCHAR  NULL,
+    Id_pavillon VARCHAR NOT NULL,
+    sous_local VARCHAR NULL,
+
     PRIMARY KEY (Id_local),
     FOREIGN KEY (Id_pavillon) REFERENCES Pavillon(Id_pavillon),
-    FOREIGN KEY (Id_local) REFERENCES Local(Id_local)
+    FOREIGN KEY (sous_local) REFERENCES Local(Id_local)
 );
 
 CREATE TABLE Faculté
 (
     ID_facu VARCHAR NOT NULL,
     nom_facu VARCHAR NOT NULL,
-    Id_pavillon INT NOT NULL,
+    Id_pavillon VARCHAR NOT NULL,
     PRIMARY KEY (ID_facu),
     FOREIGN KEY (Id_pavillon) REFERENCES Pavillon(Id_pavillon)
 );
