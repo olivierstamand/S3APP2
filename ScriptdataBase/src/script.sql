@@ -1,6 +1,7 @@
 drop schema if exists app2 cascade;
 create schema app2;
 set search_path = app2;
+SET TIMEZONE = 'America/Montreal';
 
 CREATE TABLE Fonction_Local
 (
@@ -459,3 +460,34 @@ VALUES
     ('D7', '3019', '0110'),
     ('D7', '3020', '0110');
 
+CREATE TABLE ReservationLog (
+     log_id SERIAL PRIMARY KEY,
+     reservation_id varchar,
+     action VARCHAR,
+     log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+CREATE OR REPLACE FUNCTION AddToReservationLog()
+    RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO ReservationLog (reservation_id, action)
+        VALUES (NEW.ID_reserv, 'Reservation added');
+    ELSIF TG_OP = 'DELETE' THEN
+        INSERT INTO ReservationLog (reservation_id, action)
+        VALUES (OLD.ID_reserv, 'Reservation removed');
+    END IF;
+
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+CREATE TRIGGER ReservationTrigger
+    AFTER INSERT OR DELETE ON Reservation
+    FOR EACH ROW
+EXECUTE FUNCTION AddToReservationLog();
