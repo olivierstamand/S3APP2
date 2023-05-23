@@ -64,12 +64,15 @@ CREATE TABLE Local
     Capacite INT NOT NULL,
     note VARCHAR  NULL,
     Id_pavillon VARCHAR NOT NULL,
+    sous_local varchar NULL,
 
     PRIMARY KEY (Id_pavillon,Id_local),
 
     FOREIGN KEY (Id_pavillon) REFERENCES Pavillon(Id_pavillon),
-    FOREIGN KEY (Id_local, Id_pavillon) REFERENCES Local(Id_local, Id_pavillon)
+    FOREIGN KEY (sous_local, Id_pavillon) REFERENCES Local(Id_local, Id_pavillon)
 );
+
+
 
 CREATE TABLE Departement_
 (
