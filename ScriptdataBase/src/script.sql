@@ -134,6 +134,32 @@ CREATE TABLE a_fonction
 
 );
 
+-- Indexes pour la table Local
+CREATE INDEX idx_Local_Id_pavillon ON Local (Id_pavillon);
+CREATE INDEX idx_Local_Id_local ON Local (Id_local);
+
+-- Indexes pour la table Faculté
+CREATE INDEX idx_Faculté_Id_pavillon ON Faculté (Id_pavillon);
+
+-- Indexes pour la table Departement_
+CREATE INDEX idx_Departement_Id_facu ON Departement_ (ID_facu);
+
+-- Indexes pour la table Usager
+CREATE INDEX idx_Usager_ID_depart ON Usager (ID_depart);
+
+-- Indexes pour la table Reservation
+CREATE INDEX idx_Reservation_Id_local ON Reservation (Id_local);
+CREATE INDEX idx_Reservation_CIP ON Reservation (CIP);
+
+-- Indexes pour la table a_carac
+CREATE INDEX idx_a_carac_Id_local ON a_carac (Id_local);
+CREATE INDEX idx_a_carac_ID_carac ON a_carac (ID_carac);
+
+-- Indexes pour la table a_fonction
+CREATE INDEX idx_a_fonction_Id_local ON a_fonction (Id_local);
+CREATE INDEX idx_a_fonction_ID_fonction ON a_fonction (ID_fonction);
+
+
 
 INSERT INTO Campus (Id_campus, nom_campus)
 VALUES
