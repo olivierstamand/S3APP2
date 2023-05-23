@@ -104,8 +104,8 @@ CREATE TABLE A_role
 CREATE TABLE Reservation
 (
     ID_reserv VARCHAR NOT NULL,
-    date_debut DATE NOT NULL,
-    date_fin DATE NOT NULL,
+    date_debut Timestamp NOT NULL,
+    date_fin Timestamp NOT NULL,
     Id_local VARCHAR NOT NULL,
     Id_pavillon VARCHAR NOT NULL,
     CIP VARCHAR NOT NULL,
@@ -334,7 +334,10 @@ VALUES
 -- Insert mock data into the Reservation table
 INSERT INTO Reservation (ID_reserv, date_debut, date_fin, Id_local, CIP,id_pavillon)
 VALUES
-    ('RES1', '2023-05-23', '2023-05-25', '3014','U1','C1');
+    ('RES1', '2023-05-23 08:00', '2023-05-25 10:45:00' , '3014','U1','C1'),
+    ('RES2', '2023-05-23 08:00', '2023-05-26 08:35', '4008','U1','C1'),
+    ('RES3', '2023-05-25 08:00', '2023-05-27 08:35', '4018','U1','C1'),
+    ('RES4', '2023-05-22 08:00', '2023-05-23 08:35', '3016','U1','C1');
 
 -- Insert mock data into the a_carac table
 INSERT INTO a_carac (Id_pavillon,Id_local, ID_carac)
